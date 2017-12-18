@@ -41,15 +41,6 @@ void mainColours()
   digitalWrite(RED, LOW);
   digitalWrite(GREEN, LOW);
   digitalWrite(BLUE, LOW);
-  reading = digitalRead(buttonPin);
-  if (reading == HIGH && previous == LOW) {
-    outputState = !outputState; }
-  previous = reading;
-  if (outputState == LOW) {
-    digitalWrite(RED, HIGH);
-    digitalWrite(GREEN, LOW);
-    digitalWrite(BLUE, LOW);
-    return; }
   for (int a=0; a<=3; a++) {
     digitalWrite(YELLOW, HIGH);
     lcd.scrollDisplayLeft();
@@ -81,15 +72,6 @@ void mainColours()
   digitalWrite(RED, HIGH);
   digitalWrite(GREEN, LOW);
   digitalWrite(BLUE, LOW);
-  reading = digitalRead(buttonPin);
-  if (reading == HIGH && previous == LOW) {
-    outputState = !outputState; }
-  previous = reading;
-  if (outputState == LOW) {
-    digitalWrite(RED, HIGH);
-    digitalWrite(GREEN, LOW);
-    digitalWrite(BLUE, LOW);
-    return; }
   for (int a=0; a<=3; a++) {
     digitalWrite(YELLOW, HIGH);
     lcd.scrollDisplayLeft();
@@ -116,20 +98,10 @@ void mainColours()
     return; }
     delay(Time);
   }
-
   // Green
   digitalWrite(RED, LOW);
   digitalWrite(GREEN, HIGH);
   digitalWrite(BLUE, LOW);
-  reading = digitalRead(buttonPin);
-  if (reading == HIGH && previous == LOW) {
-    outputState = !outputState; }
-  previous = reading;
-  if (outputState == LOW) {
-    digitalWrite(RED, HIGH);
-    digitalWrite(GREEN, LOW);
-    digitalWrite(BLUE, LOW);
-    return; }
   for (int a=0; a<=3; a++) {
     digitalWrite(YELLOW, HIGH);
     lcd.scrollDisplayLeft();
@@ -160,15 +132,6 @@ void mainColours()
   digitalWrite(RED, LOW);
   digitalWrite(GREEN, LOW);
   digitalWrite(BLUE, HIGH);
-  reading = digitalRead(buttonPin);
-  if (reading == HIGH && previous == LOW) {
-    outputState = !outputState; }
-  previous = reading;
-  if (outputState == LOW) {
-    digitalWrite(RED, HIGH);
-    digitalWrite(GREEN, LOW);
-    digitalWrite(BLUE, LOW);
-    return; }
   for (int a=0; a<=3; a++){
     digitalWrite(YELLOW, HIGH);
     lcd.scrollDisplayLeft();
@@ -200,14 +163,6 @@ void mainColours()
   digitalWrite(GREEN, HIGH);
   digitalWrite(BLUE, LOW);
   reading = digitalRead(buttonPin);
-  if (reading == HIGH && previous == LOW) {
-    outputState = !outputState; }
-  previous = reading;
-  if (outputState == LOW) {
-    digitalWrite(RED, HIGH);
-    digitalWrite(GREEN, LOW);
-    digitalWrite(BLUE, LOW);
-    return; }
   for (int a=0; a<=3; a++){
     digitalWrite(YELLOW, HIGH);
     lcd.scrollDisplayLeft();
@@ -238,15 +193,6 @@ void mainColours()
   digitalWrite(RED, LOW);
   digitalWrite(GREEN, HIGH);
   digitalWrite(BLUE, HIGH);
-  reading = digitalRead(buttonPin);
-  if (reading == HIGH && previous == LOW) {
-    outputState = !outputState; }
-  previous = reading;
-  if (outputState == LOW) {
-    digitalWrite(RED, HIGH);
-    digitalWrite(GREEN, LOW);
-    digitalWrite(BLUE, LOW);
-    return; }
   for (int a=0; a<=3; a++){
     digitalWrite(YELLOW, HIGH);
     lcd.scrollDisplayLeft();
@@ -277,15 +223,6 @@ void mainColours()
   digitalWrite(RED, HIGH);
   digitalWrite(GREEN, LOW);
   digitalWrite(BLUE, HIGH);
-  reading = digitalRead(buttonPin);
-  if (reading == HIGH && previous == LOW) {
-    outputState = !outputState; }
-  previous = reading;
-  if (outputState == LOW) {
-    digitalWrite(RED, HIGH);
-    digitalWrite(GREEN, LOW);
-    digitalWrite(BLUE, LOW);
-    return; }
   for (int a=0; a<=3; a++){
     digitalWrite(YELLOW, HIGH);
     lcd.scrollDisplayLeft();
@@ -316,15 +253,6 @@ void mainColours()
   digitalWrite(RED, HIGH);
   digitalWrite(GREEN, HIGH);
   digitalWrite(BLUE, HIGH);
-  reading = digitalRead(buttonPin);
-  if (reading == HIGH && previous == LOW) {
-    outputState = !outputState; }
-  previous = reading;
-  if (outputState == LOW) {
-    digitalWrite(RED, HIGH);
-    digitalWrite(GREEN, LOW);
-    digitalWrite(BLUE, LOW);
-    return; }
   for (int a=0; a<=3; a++){
     digitalWrite(YELLOW, HIGH);
     lcd.scrollDisplayLeft();
