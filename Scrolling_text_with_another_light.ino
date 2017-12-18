@@ -1,6 +1,6 @@
-int buttonPin = 2;
-int stopLED = 3;
-int LED1 = 4;
+const int buttonPin = 2;
+const int stopLED = 3;
+const int LED1 = 4;
 int reading = LOW;
 int previous = LOW;
 int outputState = LOW;

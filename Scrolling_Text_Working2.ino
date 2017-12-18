@@ -1,5 +1,5 @@
-int buttonPin = 2;
-int LED = 3;
+const int buttonPin = 2;
+const int LED = 3;
 int reading = LOW;
 int previous = LOW;
 int outputState = LOW;
