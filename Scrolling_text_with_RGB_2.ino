@@ -6,6 +6,7 @@ const int LED1 = 4;
 int reading = LOW;
 int previous = LOW;
 int outputState = LOW;
+int Time = 300;
 #include <LiquidCrystal.h>;
 LiquidCrystal lcd(13, 12, 11, 10, 9, 8);
 void setup() {
@@ -61,7 +62,7 @@ void mainColours()
     digitalWrite(GREEN, LOW);
     digitalWrite(BLUE, LOW);
     return; }
-    delay(400);
+    delay(Time);
     digitalWrite(LED1, LOW);
     lcd.scrollDisplayLeft();
     reading = digitalRead(buttonPin);
@@ -73,7 +74,7 @@ void mainColours()
     digitalWrite(GREEN, LOW);
     digitalWrite(BLUE, LOW);
     return; }
-    delay(400);
+    delay(Time);
   }
     
   // Red
@@ -101,7 +102,7 @@ void mainColours()
     digitalWrite(GREEN, LOW);
     digitalWrite(BLUE, LOW);
     return; }
-    delay(400);
+    delay(Time);
     digitalWrite(LED1, LOW);
     lcd.scrollDisplayLeft();
     reading = digitalRead(buttonPin);
@@ -113,7 +114,7 @@ void mainColours()
     digitalWrite(GREEN, LOW);
     digitalWrite(BLUE, LOW);
     return; }
-    delay(400);
+    delay(Time);
   }
 
   // Green
@@ -141,7 +142,7 @@ void mainColours()
     digitalWrite(GREEN, LOW);
     digitalWrite(BLUE, LOW);
     return; }
-    delay(400);
+    delay(Time);
     digitalWrite(LED1, LOW);
     lcd.scrollDisplayLeft();
     reading = digitalRead(buttonPin);
@@ -153,7 +154,7 @@ void mainColours()
     digitalWrite(GREEN, LOW);
     digitalWrite(BLUE, LOW);
     return; }
-    delay(400);
+    delay(Time);
   }
   // Blue
   digitalWrite(RED, LOW);
@@ -180,7 +181,7 @@ void mainColours()
     digitalWrite(GREEN, LOW);
     digitalWrite(BLUE, LOW);
     return; }
-    delay(400);
+    delay(Time);
     digitalWrite(LED1, LOW);
     lcd.scrollDisplayLeft();
     reading = digitalRead(buttonPin);
@@ -192,7 +193,7 @@ void mainColours()
     digitalWrite(GREEN, LOW);
     digitalWrite(BLUE, LOW);
     return; }
-    delay(400);
+    delay(Time);
   }
   // Yellow (Red and Green)
   digitalWrite(RED, HIGH);
@@ -219,7 +220,7 @@ void mainColours()
     digitalWrite(GREEN, LOW);
     digitalWrite(BLUE, LOW);
     return; }
-    delay(400);
+    delay(Time);
     digitalWrite(LED1, LOW);
     lcd.scrollDisplayLeft();
     reading = digitalRead(buttonPin);
@@ -231,7 +232,7 @@ void mainColours()
     digitalWrite(GREEN, LOW);
     digitalWrite(BLUE, LOW);
     return; }
-    delay(400);
+    delay(Time);
   }
   // Cyan (Green and Blue)
   digitalWrite(RED, LOW);
@@ -258,7 +259,7 @@ void mainColours()
     digitalWrite(GREEN, LOW);
     digitalWrite(BLUE, LOW);
     return; }
-    delay(400);
+    delay(Time);
     digitalWrite(LED1, LOW);
     lcd.scrollDisplayLeft();
     reading = digitalRead(buttonPin);
@@ -270,7 +271,7 @@ void mainColours()
     digitalWrite(GREEN, LOW);
     digitalWrite(BLUE, LOW);
     return; }
-    delay(400);
+    delay(Time);
   }
   // Purple (Red and Blue)
   digitalWrite(RED, HIGH);
@@ -297,7 +298,7 @@ void mainColours()
     digitalWrite(GREEN, LOW);
     digitalWrite(BLUE, LOW);
     return; }
-    delay(400);
+    delay(Time);
     digitalWrite(LED1, LOW);
     lcd.scrollDisplayLeft();
     reading = digitalRead(buttonPin);
@@ -309,7 +310,7 @@ void mainColours()
     digitalWrite(GREEN, LOW);
     digitalWrite(BLUE, LOW);
     return; }
-    delay(400);
+    delay(Time);
   }
   // White (turn all the LEDs on)
   digitalWrite(RED, HIGH);
@@ -336,7 +337,7 @@ void mainColours()
     digitalWrite(GREEN, LOW);
     digitalWrite(BLUE, LOW);
     return; }
-    delay(400);
+    delay(Time);
     digitalWrite(LED1, LOW);
     lcd.scrollDisplayLeft();
     reading = digitalRead(buttonPin);
@@ -348,7 +349,7 @@ void mainColours()
     digitalWrite(GREEN, LOW);
     digitalWrite(BLUE, LOW);
     return; }
-    delay(400);
+    delay(Time);
   }
 }
 
