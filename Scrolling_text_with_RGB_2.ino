@@ -45,6 +45,9 @@ void mainColours()
     outputState = !outputState; }
   previous = reading;
   if (outputState == LOW) {
+    digitalWrite(RED, HIGH);
+    digitalWrite(GREEN, LOW);
+    digitalWrite(BLUE, LOW);
     return; }
   for (int a=0; a<=3; a++) {
     digitalWrite(LED1, HIGH);
@@ -54,6 +57,9 @@ void mainColours()
     outputState = !outputState; }
   previous = reading;
   if (outputState == LOW) {
+    digitalWrite(RED, HIGH);
+    digitalWrite(GREEN, LOW);
+    digitalWrite(BLUE, LOW);
     return; }
     delay(400);
     digitalWrite(LED1, LOW);
@@ -63,6 +69,9 @@ void mainColours()
     outputState = !outputState; }
   previous = reading;
   if (outputState == LOW) {
+    digitalWrite(RED, HIGH);
+    digitalWrite(GREEN, LOW);
+    digitalWrite(BLUE, LOW);
     return; }
     delay(400);
   }
@@ -76,6 +85,9 @@ void mainColours()
     outputState = !outputState; }
   previous = reading;
   if (outputState == LOW) {
+    digitalWrite(RED, HIGH);
+    digitalWrite(GREEN, LOW);
+    digitalWrite(BLUE, LOW);
     return; }
   for (int a=0; a<=3; a++) {
     digitalWrite(LED1, HIGH);
@@ -85,6 +97,9 @@ void mainColours()
     outputState = !outputState; }
   previous = reading;
   if (outputState == LOW) {
+    digitalWrite(RED, HIGH);
+    digitalWrite(GREEN, LOW);
+    digitalWrite(BLUE, LOW);
     return; }
     delay(400);
     digitalWrite(LED1, LOW);
@@ -94,6 +109,9 @@ void mainColours()
     outputState = !outputState; }
   previous = reading;
   if (outputState == LOW) {
+    digitalWrite(RED, HIGH);
+    digitalWrite(GREEN, LOW);
+    digitalWrite(BLUE, LOW);
     return; }
     delay(400);
   }
@@ -107,6 +125,9 @@ void mainColours()
     outputState = !outputState; }
   previous = reading;
   if (outputState == LOW) {
+    digitalWrite(RED, HIGH);
+    digitalWrite(GREEN, LOW);
+    digitalWrite(BLUE, LOW);
     return; }
   for (int a=0; a<=3; a++) {
     digitalWrite(LED1, HIGH);
@@ -116,6 +137,9 @@ void mainColours()
     outputState = !outputState; }
   previous = reading;
   if (outputState == LOW) {
+    digitalWrite(RED, HIGH);
+    digitalWrite(GREEN, LOW);
+    digitalWrite(BLUE, LOW);
     return; }
     delay(400);
     digitalWrite(LED1, LOW);
@@ -125,6 +149,9 @@ void mainColours()
     outputState = !outputState; }
   previous = reading;
   if (outputState == LOW) {
+    digitalWrite(RED, HIGH);
+    digitalWrite(GREEN, LOW);
+    digitalWrite(BLUE, LOW);
     return; }
     delay(400);
   }
@@ -137,6 +164,9 @@ void mainColours()
     outputState = !outputState; }
   previous = reading;
   if (outputState == LOW) {
+    digitalWrite(RED, HIGH);
+    digitalWrite(GREEN, LOW);
+    digitalWrite(BLUE, LOW);
     return; }
   for (int a=0; a<=3; a++){
     digitalWrite(LED1, HIGH);
@@ -146,6 +176,9 @@ void mainColours()
     outputState = !outputState; }
   previous = reading;
   if (outputState == LOW) {
+    digitalWrite(RED, HIGH);
+    digitalWrite(GREEN, LOW);
+    digitalWrite(BLUE, LOW);
     return; }
     delay(400);
     digitalWrite(LED1, LOW);
@@ -155,6 +188,9 @@ void mainColours()
     outputState = !outputState; }
   previous = reading;
   if (outputState == LOW) {
+    digitalWrite(RED, HIGH);
+    digitalWrite(GREEN, LOW);
+    digitalWrite(BLUE, LOW);
     return; }
     delay(400);
   }
@@ -167,6 +203,9 @@ void mainColours()
     outputState = !outputState; }
   previous = reading;
   if (outputState == LOW) {
+    digitalWrite(RED, HIGH);
+    digitalWrite(GREEN, LOW);
+    digitalWrite(BLUE, LOW);
     return; }
   for (int a=0; a<=3; a++){
     digitalWrite(LED1, HIGH);
@@ -176,6 +215,9 @@ void mainColours()
     outputState = !outputState; }
   previous = reading;
   if (outputState == LOW) {
+    digitalWrite(RED, HIGH);
+    digitalWrite(GREEN, LOW);
+    digitalWrite(BLUE, LOW);
     return; }
     delay(400);
     digitalWrite(LED1, LOW);
@@ -185,6 +227,9 @@ void mainColours()
     outputState = !outputState; }
   previous = reading;
   if (outputState == LOW) {
+    digitalWrite(RED, HIGH);
+    digitalWrite(GREEN, LOW);
+    digitalWrite(BLUE, LOW);
     return; }
     delay(400);
   }
@@ -197,6 +242,9 @@ void mainColours()
     outputState = !outputState; }
   previous = reading;
   if (outputState == LOW) {
+    digitalWrite(RED, HIGH);
+    digitalWrite(GREEN, LOW);
+    digitalWrite(BLUE, LOW);
     return; }
   for (int a=0; a<=3; a++){
     digitalWrite(LED1, HIGH);
@@ -206,6 +254,9 @@ void mainColours()
     outputState = !outputState; }
   previous = reading;
   if (outputState == LOW) {
+    digitalWrite(RED, HIGH);
+    digitalWrite(GREEN, LOW);
+    digitalWrite(BLUE, LOW);
     return; }
     delay(400);
     digitalWrite(LED1, LOW);
@@ -215,6 +266,9 @@ void mainColours()
     outputState = !outputState; }
   previous = reading;
   if (outputState == LOW) {
+    digitalWrite(RED, HIGH);
+    digitalWrite(GREEN, LOW);
+    digitalWrite(BLUE, LOW);
     return; }
     delay(400);
   }
@@ -227,6 +281,9 @@ void mainColours()
     outputState = !outputState; }
   previous = reading;
   if (outputState == LOW) {
+    digitalWrite(RED, HIGH);
+    digitalWrite(GREEN, LOW);
+    digitalWrite(BLUE, LOW);
     return; }
   for (int a=0; a<=3; a++){
     digitalWrite(LED1, HIGH);
@@ -236,6 +293,9 @@ void mainColours()
     outputState = !outputState; }
   previous = reading;
   if (outputState == LOW) {
+    digitalWrite(RED, HIGH);
+    digitalWrite(GREEN, LOW);
+    digitalWrite(BLUE, LOW);
     return; }
     delay(400);
     digitalWrite(LED1, LOW);
@@ -245,6 +305,9 @@ void mainColours()
     outputState = !outputState; }
   previous = reading;
   if (outputState == LOW) {
+    digitalWrite(RED, HIGH);
+    digitalWrite(GREEN, LOW);
+    digitalWrite(BLUE, LOW);
     return; }
     delay(400);
   }
@@ -257,6 +320,9 @@ void mainColours()
     outputState = !outputState; }
   previous = reading;
   if (outputState == LOW) {
+    digitalWrite(RED, HIGH);
+    digitalWrite(GREEN, LOW);
+    digitalWrite(BLUE, LOW);
     return; }
   for (int a=0; a<=3; a++){
     digitalWrite(LED1, HIGH);
@@ -266,6 +332,9 @@ void mainColours()
     outputState = !outputState; }
   previous = reading;
   if (outputState == LOW) {
+    digitalWrite(RED, HIGH);
+    digitalWrite(GREEN, LOW);
+    digitalWrite(BLUE, LOW);
     return; }
     delay(400);
     digitalWrite(LED1, LOW);
@@ -275,6 +344,9 @@ void mainColours()
     outputState = !outputState; }
   previous = reading;
   if (outputState == LOW) {
+    digitalWrite(RED, HIGH);
+    digitalWrite(GREEN, LOW);
+    digitalWrite(BLUE, LOW);
     return; }
     delay(400);
   }
