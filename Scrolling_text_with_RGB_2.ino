@@ -75,11 +75,6 @@ void colourloop() {
 }
 void mainColours()
 {
-  // all LEDs off
-  digitalWrite(RED, LOW);
-  digitalWrite(GREEN, LOW);
-  digitalWrite(BLUE, LOW);
-  colourloop();
   // Red
   digitalWrite(RED, HIGH);
   digitalWrite(GREEN, LOW);
