@@ -3,10 +3,11 @@ const int RED = 7;
 const int GREEN = 6;
 const int BLUE = 5;
 const int YELLOW = 4;
+const int LED2 = 3;
 int reading = LOW;
 int previous = LOW;
 int outputState = LOW;
-int Time = 300;
+int Time = 150;
 #include <LiquidCrystal.h>;
 LiquidCrystal lcd(13, 12, 11, 10, 9, 8);
 void setup() {
@@ -15,6 +16,7 @@ void setup() {
   pinMode(GREEN, OUTPUT);
   pinMode(BLUE, OUTPUT);
   pinMode(YELLOW, OUTPUT);
+  pinMode(LED2, OUTPUT);
   lcd.begin (16, 2);
   lcd.print ("                  Merry Christmas!!!     Happy Holidays!!!");
 }
@@ -28,6 +30,7 @@ void loop() {
   if (outputState == LOW) {
     digitalWrite(RED, HIGH);
     digitalWrite(YELLOW, HIGH);
+    digitalWrite(LED2, LOW);
     delay(200);
   }
   else {
@@ -39,6 +42,7 @@ void loop() {
 void colourloop() {
   for (int a = 0; a <= 3; a++) {
     digitalWrite(YELLOW, HIGH);
+    digitalWrite(LED2, LOW);
     lcd.scrollDisplayLeft();
     reading = digitalRead(buttonPin);
     if (reading == HIGH && previous == LOW) {
@@ -53,6 +57,7 @@ void colourloop() {
     }
     delay(Time);
     digitalWrite(YELLOW, LOW);
+    digitalWrite(LED2, HIGH);
     lcd.scrollDisplayLeft();
     reading = digitalRead(buttonPin);
     if (reading == HIGH && previous == LOW) {
