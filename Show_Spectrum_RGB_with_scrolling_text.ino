@@ -2,6 +2,7 @@ const int RED = 7;
 const int GREEN = 6;
 const int BLUE = 5;
 const int YELLOW = 4;
+const int LED2 = 3;
 const int buttonPin = 2;
 int reading = LOW;
 int previous = LOW;
@@ -13,6 +14,7 @@ void setup() {
   pinMode(GREEN, OUTPUT);
   pinMode(BLUE, OUTPUT);
   pinMode(YELLOW, OUTPUT);
+  pinMode(LED2, OUTPUT);
   pinMode(buttonPin, INPUT);
   lcd.begin (16, 2);
   lcd.print ("                  Merry Christmas!!!     Happy Holidays!!!");
@@ -27,6 +29,7 @@ void loop() {
   if (outputState == LOW) {
     digitalWrite(RED, HIGH);
     digitalWrite(YELLOW, HIGH);
+    digitalWrite(LED2, LOW);
     delay(200);
   }
   else {
@@ -38,6 +41,7 @@ void showSpectrum() {
   for (int x = 0; x <= 767; x++) {
     RGB(x);      // Increment x and call RGB() to progress through colors.
     digitalWrite(YELLOW, HIGH);
+    digitalWrite(LED2, LOW);
     delay(75);
     lcd.scrollDisplayLeft();
     reading = digitalRead(buttonPin);
@@ -52,6 +56,7 @@ void showSpectrum() {
       return;
     }
     digitalWrite(YELLOW, LOW);
+    digitalWrite(LED2, HIGH);
     delay(125);
     }
 }
