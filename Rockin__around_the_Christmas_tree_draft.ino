@@ -12,9 +12,9 @@ const int Bb4 = 466;
 const int R = 0;
 
 int buzzerPin = 14;
-int numNotes = 190;
+int numNotes = 256;
 // notes in the melody:
-int melody[] = {
+int repeatedMelody[] = {
   Eb4, R, Eb4, R, Eb4, R, F4, R, F4, R,
   Eb4, R, Eb4, R, F4, F4, R, Eb4, R, Eb4, R,
   G4, R, F4, R, Db4, R, Bb3, R, G3, G3, R, R,
@@ -23,13 +23,13 @@ int melody[] = {
   F4, R, F4, R, G4, G4, R, F4, R, F4, R,
   Eb4, R, E4, R, F4, R, Db4, R, C4, R, R,
 
-  Eb4, R, Eb4, R, Eb4, R, F4, R, F4, R,
-  Eb4, R, Eb4, R, F4, F4, R, Eb4, R, Eb4, R,
+  Eb4, R, Eb4, R, Eb4, R, F4, R, F4, R,         
+  Eb4, R, Eb4, R, F4, F4, R, Eb4, R, Eb4, R, 
   G4, R, F4, R, Db4, R, Bb3, R, G3, G3, R, R,
 
   F4, R, F4, R, F4, R, G4, R, G4, R,
   F4, R, F4, R, G4, G4, R, F4, R, F4, R,
-  Eb4, R, E4, R, F4, R, G3, R, Ab3, R, R,
+  Eb4, R, E4, R, F4, R, G3, R, Ab3, R, R,       
 
   F4, R, E4, R, F4, R, E4, R,
   F4, R, Ab3, R, Db4, R, F4, R,
@@ -39,10 +39,25 @@ int melody[] = {
   Ab4, R, F4, R, G4, R, Ab4, R,
   Bb4, R, R, Ab4, R, G4, R, F4, R,
   Eb4, R, F4, R, G4, R, Eb4, R,
+
+  Eb4, R, Eb4, R, Eb4, R, F4, R, F4, R,         
+  Eb4, R, Eb4, R, F4, F4, R, Eb4, R, Eb4, R,
+  G4, R, F4, R, Db4, R, Bb3, R, G3, G3, R, R,
+
+  F4, R, F4, R, F4, R, G4, R, G4, R,
+  F4, R, F4, R, G4, G4, R, F4, R, F4, R,
+};
+int melody[] = {
+  repeatedMelody,
+  Eb4, R, E4, R, F4, R, G3, R, Ab3, Ab3, R, R,        //ending 1
+
+  ////////////////////////////////////////////////////// the next part of code is exactly the same but with a different ending
+
+  repeatedMelody,
+  Eb4, R, R, E4, R, R, F4, R, R, G4, R, R, Bb4, Ab4, Ab4, Ab4, R, R, R,        //ending 2
 };
 
-// note durations: 4 = quarter note, 16 = eighth note, etc.:
-int noteDurations[] = {
+int repeatedNoteDurations[] = {
   6, 16, 12, 16, 4, 16, 4, 16, 4, 16,
   4, 16, 6, 16, 12, 4, 16, 6, 16, 12, 16,
   4, 16, 4, 16, 4, 16, 6, 16, 12, 2, 2, 16,
@@ -51,13 +66,13 @@ int noteDurations[] = {
   4, 16, 6, 16, 12, 4, 16, 6, 16, 12, 16,
   4, 16, 4, 16, 4, 16, 4, 16, 2, 2, 16,
 
-  6, 16, 12, 16, 4, 16, 4, 16, 4, 16,
+  6, 16, 12, 16, 4, 16, 4, 16, 4, 16,           
   4, 16, 6, 16, 12, 4, 16, 6, 16, 12, 16,
   4, 16, 4, 16, 4, 16, 6, 16, 12, 2, 2, 16,
   
   6, 16, 12, 16, 4, 16, 4, 16, 4, 16,
   4, 16, 6, 16, 12, 4, 16, 6, 16, 12, 16,
-  4, 16, 4, 16, 4, 16, 4, 16, 2, 2, 16,
+  4, 16, 4, 16, 4, 16, 4, 16, 2, 2, 16,         
 
   4, 16, 4, 16, 4, 16, 4, 16,
   4, 16, 4, 16, 4, 16, 4, 16,
@@ -67,6 +82,22 @@ int noteDurations[] = {
   4, 16, 4, 16, 4, 16, 4, 16,
   6, 16, 4, 12, 16, 4, 16, 4, 16,
   4, 16, 4, 16, 4, 16, 4, 16,
+
+  6, 16, 12, 16, 4, 16, 4, 16, 4, 16,         
+  4, 16, 6, 16, 12, 4, 16, 6, 16, 12, 16,
+  4, 16, 4, 16, 4, 16, 6, 16, 12, 2, 2, 16,
+  
+  6, 16, 12, 16, 4, 16, 4, 16, 4, 16,
+  4, 16, 6, 16, 12, 4, 16, 6, 16, 12, 16,
+};
+// note durations: 4 = quarter note, 16 = eighth note, etc.:
+int noteDurations[] = {
+  repeatedNoteDurations[],
+  4, 16, 4, 16, 4, 16, 4, 16, 2, 4, 4, 16,      //Ending 1
+
+  repeatedNoteDurations[],
+  4, 4, 16, 4, 4, 16, 4, 4, 16, 4, 4, 16, 12, 6, 4, 1, 2, 1, 1,     //Ending 1
+  
 };
 
 void setup() {
