@@ -3,7 +3,7 @@ const int resetPin = 15;
 const int RED = 7;
 const int GREEN = 6;
 const int BLUE = 5;
-const int YELLOW = 4;
+const int LED1 = 4;
 const int LED2 = 3;
 boolean reading = false;
 boolean previous = false;
@@ -15,7 +15,7 @@ boolean play = true;
 unsigned long interval = 425.5;
 unsigned long currentMillis;
 unsigned long previousMillis = 0;
-boolean stateLED = false;
+boolean stateLED1 = false;
 boolean stateLED2 = true;
 unsigned long scrollinterval = 250;
 unsigned long scrollcurrentMillis;
@@ -132,13 +132,13 @@ void setup() {
   pinMode(RED, OUTPUT);
   pinMode(GREEN, OUTPUT);
   pinMode(BLUE, OUTPUT);
-  pinMode(YELLOW, OUTPUT);
+  pinMode(LED1, OUTPUT);
   pinMode(LED2, OUTPUT);
   pinMode(buzzerPin, OUTPUT);
   lcd.begin (16, 2);
   lcd.print ("                  Merry Christmas!!!     Happy Holidays!!!");
-  digitalWrite(YELLOW, stateLED);
-  Serial.begin(9600);
+  digitalWrite(LED1, stateLED1);
+  digitalWrite(LED2, stateLED2);
 }
 void loop() {
   reading = digitalRead(buttonPin);
@@ -149,7 +149,7 @@ void loop() {
 
   if (outputState == false) {
     digitalWrite(RED, true);
-    digitalWrite(YELLOW, false);
+    digitalWrite(LED1, false);
     digitalWrite(LED2, true);
     noTone(buzzerPin);
   }
@@ -220,9 +220,9 @@ void loop() {
 void MillisLoop() {
   unsigned long currentMillis = millis();
   if ((unsigned long)(currentMillis - previousMillis) >= interval) {
-    stateLED = !stateLED;
+    stateLED1 = !stateLED1;
     stateLED2 = !stateLED2;
-    digitalWrite(YELLOW, stateLED);
+    digitalWrite(LED1, stateLED1);
     digitalWrite(LED2, stateLED2);
     previousMillis = millis();
   }
@@ -240,56 +240,47 @@ void MillisLoop() {
     }
     previous = reading;
     if (outputState == true) {
-      Serial.println("top");
       RGBState++;
       switch (RGBState) {
         case 1:
           digitalWrite(RED, true);
           digitalWrite(GREEN, false);
           digitalWrite(BLUE, false);
-          Serial.println("1");
           break;
         case 2:
           digitalWrite(RED, false);
           digitalWrite(GREEN, true);
           digitalWrite(BLUE, false);
-          Serial.println("2");
           break;
         case 3:
           digitalWrite(RED, false);
           digitalWrite(GREEN, false);
           digitalWrite(BLUE, true);
-          Serial.println("3");
           break;
         case 4:
           digitalWrite(RED, true);
           digitalWrite(GREEN, true);
           digitalWrite(BLUE, false);
-          Serial.println("4");
           break;
         case 5:
           digitalWrite(RED, false);
           digitalWrite(GREEN, true);
           digitalWrite(BLUE, true);
-          Serial.println("5");
           break;
         case 6:
           digitalWrite(RED, true);
           digitalWrite(GREEN, false);
           digitalWrite(BLUE, true);
-          Serial.println("6");
           break;
         case 7:
           digitalWrite(RED, true);
           digitalWrite(GREEN, true);
           digitalWrite(BLUE, true);
-          Serial.println("7");
           break;
         case 8:
           digitalWrite(RED, false);
           digitalWrite(GREEN, false);
           digitalWrite(BLUE, false);
-          Serial.println("8");
           RGBState = 0;
           break;
       }
@@ -308,7 +299,7 @@ void pausebuttonLoop() {
     digitalWrite(BLUE, false);
     digitalWrite(GREEN, true);
     digitalWrite(RED, false);
-    digitalWrite(YELLOW, false);
+    digitalWrite(LED1, false);
     digitalWrite(LED2, true);
     noTone(buzzerPin);
     reading = digitalRead(buttonPin);
@@ -336,7 +327,7 @@ void resetbuttonLoop() {
     digitalWrite(BLUE, false);
     digitalWrite(GREEN, true);
     digitalWrite(RED, false);
-    digitalWrite(YELLOW, false);
+    digitalWrite(LED1, false);
     digitalWrite(LED2, true);
     noTone(buzzerPin);
 
