@@ -1,5 +1,5 @@
 const int buttonPin = 2;
-const int RESET = 15;
+const int resetPin = 15;
 const int RED = 7;
 const int GREEN = 6;
 const int BLUE = 5;
@@ -115,12 +115,14 @@ int endingNoteDurations2[] = {
 };
 void setup() {
   pinMode(buttonPin, INPUT);
+  pinMode(resetPin, INPUT);
   pinMode(RED, OUTPUT);
   pinMode(GREEN, OUTPUT);
   pinMode(BLUE, OUTPUT);
   pinMode(YELLOW, OUTPUT);
   pinMode(LED2, OUTPUT);
   pinMode(buzzerPin, OUTPUT);
+  Serial.begin(9600);
   lcd.begin (16, 2);
   lcd.print ("                  Merry Christmas!!!     Happy Holidays!!!");
 }
@@ -140,140 +142,32 @@ void loop() {
   }
   else {
     for (int thisNote = 0; thisNote < numNotes; thisNote++) {
-      reading = digitalRead(buttonPin);
-      if (reading == HIGH && previous == LOW) {
-        outputState = !outputState;
-      }
-      previous = reading;
-
-      while (outputState == LOW) {
-        digitalWrite(RED, HIGH);
-        digitalWrite(YELLOW, LOW);
-        digitalWrite(LED2, LOW);
-        noTone(buzzerPin);
-        reading = digitalRead(buttonPin);
-        if (reading == HIGH && previous == LOW) {
-          outputState = !outputState;
-        }
-        previous = reading;
-      }
-      readingRESET = digitalRead(RESET);
-      if (readingRESET == HIGH && previousRESET == LOW) {
-        outputStateRESET = !outputStateRESET;
-      }
-      previousRESET = readingRESET;
-      if (outputStateRESET == LOW) {
-        digitalWrite(RED, HIGH);
-        digitalWrite(YELLOW, LOW);
-        digitalWrite(LED2, LOW);
-        noTone(buzzerPin);
-        return;
-      }
+      pausebuttonLoop();
       int noteDuration1 = 1297 / repeatedNoteDurations[thisNote];
       tone(buzzerPin, repeatedMelody[thisNote], noteDuration1);
       delay(noteDuration1);
       noTone(buzzerPin);
+      resetbuttonLoop();
     }
     for (int thisNote1 = 0; thisNote1 < endingNumNotes1; thisNote1++) {
-      reading = digitalRead(buttonPin);
-      if (reading == HIGH && previous == LOW) {
-        outputState = !outputState;
-      }
-      previous = reading;
-
-      while (outputState == LOW) {
-        digitalWrite(RED, HIGH);
-        digitalWrite(YELLOW, LOW);
-        digitalWrite(LED2, LOW);
-        noTone(buzzerPin);
-        reading = digitalRead(buttonPin);
-        if (reading == HIGH && previous == LOW) {
-          outputState = !outputState;
-        }
-        previous = reading;
-      }
-      readingRESET = digitalRead(RESET);
-      if (readingRESET == HIGH && previousRESET == LOW) {
-        outputStateRESET = !outputStateRESET;
-      }
-      previousRESET = readingRESET;
-      if (outputStateRESET == LOW) {
-        digitalWrite(RED, HIGH);
-        digitalWrite(YELLOW, LOW);
-        digitalWrite(LED2, LOW);
-        noTone(buzzerPin);
-        return;
-      }
+      pausebuttonLoop();
+      resetbuttonLoop();
       int endingNoteDuration1 = 1297 / endingNoteDurations1[thisNote1];
       tone(buzzerPin, endingMelody1[thisNote1], endingNoteDuration1);
       delay(endingNoteDuration1);
       noTone(buzzerPin);
     }
     for (int thisNote = 0; thisNote < numNotes; thisNote++) {
-      reading = digitalRead(buttonPin);
-      if (reading == HIGH && previous == LOW) {
-        outputState = !outputState;
-      }
-      previous = reading;
-
-      while (outputState == LOW) {
-        digitalWrite(RED, HIGH);
-        digitalWrite(YELLOW, LOW);
-        digitalWrite(LED2, LOW);
-        noTone(buzzerPin);
-        reading = digitalRead(buttonPin);
-        if (reading == HIGH && previous == LOW) {
-          outputState = !outputState;
-        }
-        previous = reading;
-      }
-      readingRESET = digitalRead(RESET);
-      if (readingRESET == HIGH && previousRESET == LOW) {
-        outputStateRESET = !outputStateRESET;
-      }
-      previousRESET = readingRESET;
-      if (outputStateRESET == LOW) {
-        digitalWrite(RED, HIGH);
-        digitalWrite(YELLOW, LOW);
-        digitalWrite(LED2, LOW);
-        noTone(buzzerPin);
-        return;
-      }
+      pausebuttonLoop();
+      resetbuttonLoop();
       int noteDuration1 = 1297 / repeatedNoteDurations[thisNote];
       tone(buzzerPin, repeatedMelody[thisNote], noteDuration1);
       delay(noteDuration1);
       noTone(buzzerPin);
     }
     for (int thisNote2 = 0; thisNote2 < endingNumNotes2; thisNote2++) {
-      reading = digitalRead(buttonPin);
-      if (reading == HIGH && previous == LOW) {
-        outputState = !outputState;
-      }
-      previous = reading;
-
-      while (outputState == LOW) {
-        digitalWrite(RED, HIGH);
-        digitalWrite(YELLOW, LOW);
-        digitalWrite(LED2, LOW);
-        noTone(buzzerPin);
-        reading = digitalRead(buttonPin);
-        if (reading == HIGH && previous == LOW) {
-          outputState = !outputState;
-        }
-        previous = reading;
-      }
-      readingRESET = digitalRead(RESET);
-      if (readingRESET == HIGH && previousRESET == LOW) {
-        outputStateRESET = !outputStateRESET;
-      }
-      previousRESET = readingRESET;
-      if (outputStateRESET == LOW) {
-        digitalWrite(RED, HIGH);
-        digitalWrite(YELLOW, LOW);
-        digitalWrite(LED2, LOW);
-        noTone(buzzerPin);
-        return;
-      }
+      pausebuttonLoop();
+      resetbuttonLoop();
       int endingNoteDuration2 = 1297 / endingNoteDurations2[thisNote2];
       tone(buzzerPin, endingMelody2[thisNote2], endingNoteDuration2);
       delay(endingNoteDuration2);
@@ -282,8 +176,46 @@ void loop() {
   }
   delay(100);
 }
+void pausebuttonLoop() {
+  reading = digitalRead(buttonPin);
+  if (reading == HIGH && previous == LOW) {
+    outputState = !outputState;
+  }
+  previous = reading;
+
+  while (outputState == LOW) {
+    digitalWrite(RED, HIGH);
+    digitalWrite(YELLOW, LOW);
+    digitalWrite(LED2, LOW);
+    noTone(buzzerPin);
+    reading = digitalRead(buttonPin);
+    if (reading == HIGH && previous == LOW) {
+      outputState = !outputState;
+    }
+    previous = reading;
+  }
+}
+void resetbuttonLoop() {
+  readingRESET = digitalRead(resetPin);
+  if (readingRESET == HIGH && previousRESET == LOW) {
+    outputStateRESET = !outputStateRESET;
+  }
+  previousRESET = readingRESET;
+  if (outputStateRESET == LOW) {
+    Serial.print("0");
+    digitalWrite(RED, HIGH);
+    digitalWrite(YELLOW, LOW);
+    digitalWrite(LED2, LOW);
+    noTone(buzzerPin);
+    return;
+  }
+  else {
+    Serial.print("1");
+    digitalWrite(RED, LOW);
+  }
+}
 /*
-void colourloop() {
+  void colourloop() {
   for (int a = 0; a <= 3; a++) {
     digitalWrite(YELLOW, HIGH);
     digitalWrite(LED2, LOW);
@@ -318,9 +250,9 @@ void colourloop() {
     }
     delay(Time);
   }
-}
-void mainColours()
-{
+  }
+  void mainColours()
+  {
   // Red
   digitalWrite(RED, HIGH);
   digitalWrite(GREEN, LOW);
@@ -356,6 +288,6 @@ void mainColours()
   digitalWrite(GREEN, HIGH);
   digitalWrite(BLUE, HIGH);
   colourloop();
-}
+  }
 */
 
