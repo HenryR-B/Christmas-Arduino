@@ -5,24 +5,24 @@ const int GREEN = 6;
 const int BLUE = 5;
 const int YELLOW = 4;
 const int LED2 = 3;
-int reading = LOW;
-int previous = LOW;
-int outputState = LOW;
-int readingRESET = LOW;
-int previousRESET = LOW;
-int outputStateRESET = LOW;
-int Time = 150;
+boolean reading = false;
+boolean previous = false;
+boolean outputState = false;
+boolean readingRESET = false;
+boolean previousRESET = false;
+boolean outputStateRESET = false;
+boolean play = true;
 #include <LiquidCrystal.h>;
 LiquidCrystal lcd(13, 12, 11, 10, 9, 8);
-const int G3 = 196;
+const int G3 =  196;
 const int Ab3 = 208;
 const int Bb3 = 233;
-const int C4 = 262;
+const int C4  = 262;
 const int Db4 = 277;
 const int Eb4 = 311;
-const int E4 = 330;
-const int F4 = 349;
-const int G4 = 392;
+const int E4  = 330;
+const int F4  = 349;
+const int G4  = 392;
 const int Ab4 = 415;
 const int Bb4 = 466;
 const int R = 0;
@@ -126,32 +126,77 @@ void setup() {
   lcd.begin (16, 2);
   lcd.print ("                  Merry Christmas!!!     Happy Holidays!!!");
 }
-void loop() {
+void pausebuttonLoop() {
   reading = digitalRead(buttonPin);
-  if (reading == HIGH && previous == LOW) {
+  if (reading == true && previous == false) {
     outputState = !outputState;
   }
   previous = reading;
 
-  if (outputState == LOW) {
-    digitalWrite(RED, HIGH);
-    digitalWrite(YELLOW, LOW);
-    digitalWrite(LED2, LOW);
+  while (outputState == false) {
+    digitalWrite(RED, true);
+    digitalWrite(YELLOW, false);
+    digitalWrite(LED2, false);
     noTone(buzzerPin);
-    delay(200);
+    reading = digitalRead(buttonPin);
+    if (reading == true && previous == false) {
+      outputState = !outputState;
+    }
+    previous = reading;
+  }
+}
+void resetbuttonLoop() {
+  readingRESET = digitalRead(resetPin);
+  if (readingRESET == true && previousRESET == false) {
+    outputStateRESET = !outputStateRESET;
+  }
+  previousRESET = readingRESET;
+  if (outputStateRESET == false) {
+    play = false;
+    Serial.println("0");
+    digitalWrite(RED, true);
+    digitalWrite(YELLOW, false);
+    digitalWrite(LED2, false);
+    noTone(buzzerPin);
+
+  }
+  else {
+    play = true;
+    Serial.println("1");
+    digitalWrite(RED, false);
+  }
+}
+void loop() {
+  reading = digitalRead(buttonPin);
+  if (reading == true && previous == false) {
+    outputState = !outputState;
+  }
+  previous = reading;
+
+  if (outputState == false) {
+    digitalWrite(RED, true);
+    digitalWrite(YELLOW, false);
+    digitalWrite(LED2, false);
+    noTone(buzzerPin);
   }
   else {
     for (int thisNote = 0; thisNote < numNotes; thisNote++) {
       pausebuttonLoop();
+      resetbuttonLoop();
+      if (!play) {
+        break;
+      }
       int noteDuration1 = 1297 / repeatedNoteDurations[thisNote];
       tone(buzzerPin, repeatedMelody[thisNote], noteDuration1);
       delay(noteDuration1);
       noTone(buzzerPin);
-      resetbuttonLoop();
     }
     for (int thisNote1 = 0; thisNote1 < endingNumNotes1; thisNote1++) {
       pausebuttonLoop();
       resetbuttonLoop();
+      if (!play) {
+        break;
+      }
       int endingNoteDuration1 = 1297 / endingNoteDurations1[thisNote1];
       tone(buzzerPin, endingMelody1[thisNote1], endingNoteDuration1);
       delay(endingNoteDuration1);
@@ -160,6 +205,9 @@ void loop() {
     for (int thisNote = 0; thisNote < numNotes; thisNote++) {
       pausebuttonLoop();
       resetbuttonLoop();
+      if (!play) {
+        break;
+      }
       int noteDuration1 = 1297 / repeatedNoteDurations[thisNote];
       tone(buzzerPin, repeatedMelody[thisNote], noteDuration1);
       delay(noteDuration1);
@@ -168,6 +216,9 @@ void loop() {
     for (int thisNote2 = 0; thisNote2 < endingNumNotes2; thisNote2++) {
       pausebuttonLoop();
       resetbuttonLoop();
+      if (!play) {
+        break;
+      }
       int endingNoteDuration2 = 1297 / endingNoteDurations2[thisNote2];
       tone(buzzerPin, endingMelody2[thisNote2], endingNoteDuration2);
       delay(endingNoteDuration2);
@@ -176,118 +227,3 @@ void loop() {
   }
   delay(100);
 }
-void pausebuttonLoop() {
-  reading = digitalRead(buttonPin);
-  if (reading == HIGH && previous == LOW) {
-    outputState = !outputState;
-  }
-  previous = reading;
-
-  while (outputState == LOW) {
-    digitalWrite(RED, HIGH);
-    digitalWrite(YELLOW, LOW);
-    digitalWrite(LED2, LOW);
-    noTone(buzzerPin);
-    reading = digitalRead(buttonPin);
-    if (reading == HIGH && previous == LOW) {
-      outputState = !outputState;
-    }
-    previous = reading;
-  }
-}
-void resetbuttonLoop() {
-  readingRESET = digitalRead(resetPin);
-  if (readingRESET == HIGH && previousRESET == LOW) {
-    outputStateRESET = !outputStateRESET;
-  }
-  previousRESET = readingRESET;
-  if (outputStateRESET == LOW) {
-    Serial.print("0");
-    digitalWrite(RED, HIGH);
-    digitalWrite(YELLOW, LOW);
-    digitalWrite(LED2, LOW);
-    noTone(buzzerPin);
-    return;
-  }
-  else {
-    Serial.print("1");
-    digitalWrite(RED, LOW);
-  }
-}
-/*
-  void colourloop() {
-  for (int a = 0; a <= 3; a++) {
-    digitalWrite(YELLOW, HIGH);
-    digitalWrite(LED2, LOW);
-    lcd.scrollDisplayLeft();
-    reading = digitalRead(buttonPin);
-    if (reading == HIGH && previous == LOW) {
-      outputState = !outputState;
-    }
-    previous = reading;
-    if (outputState == LOW) {
-      digitalWrite(RED, HIGH);
-      digitalWrite(GREEN, LOW);
-      digitalWrite(BLUE, LOW);
-      noTone(buzzerPin);
-      return;
-    }
-    delay(Time);
-    digitalWrite(YELLOW, LOW);
-    digitalWrite(LED2, HIGH);
-    lcd.scrollDisplayLeft();
-    reading = digitalRead(buttonPin);
-    if (reading == HIGH && previous == LOW) {
-      outputState = !outputState;
-    }
-    previous = reading;
-    if (outputState == LOW) {
-      digitalWrite(RED, HIGH);
-      digitalWrite(GREEN, LOW);
-      digitalWrite(BLUE, LOW);
-      noTone(buzzerPin);
-      return;
-    }
-    delay(Time);
-  }
-  }
-  void mainColours()
-  {
-  // Red
-  digitalWrite(RED, HIGH);
-  digitalWrite(GREEN, LOW);
-  digitalWrite(BLUE, LOW);
-  colourloop();
-  // Green
-  digitalWrite(RED, LOW);
-  digitalWrite(GREEN, HIGH);
-  digitalWrite(BLUE, LOW);
-  colourloop();
-  // Blue
-  digitalWrite(RED, LOW);
-  digitalWrite(GREEN, LOW);
-  digitalWrite(BLUE, HIGH);
-  colourloop();
-  // Yellow (Red and Green)
-  digitalWrite(RED, HIGH);
-  digitalWrite(GREEN, HIGH);
-  digitalWrite(BLUE, LOW);
-  colourloop();
-  // Cyan (Green and Blue)
-  digitalWrite(RED, LOW);
-  digitalWrite(GREEN, HIGH);
-  digitalWrite(BLUE, HIGH);
-  colourloop();
-  // Purple (Red and Blue)
-  digitalWrite(RED, HIGH);
-  digitalWrite(GREEN, LOW);
-  digitalWrite(BLUE, HIGH);
-  colourloop();
-  // White (turn all the LEDs on)
-  digitalWrite(RED, HIGH);
-  digitalWrite(GREEN, HIGH);
-  digitalWrite(BLUE, HIGH);
-  colourloop();
-  }
-*/
-
