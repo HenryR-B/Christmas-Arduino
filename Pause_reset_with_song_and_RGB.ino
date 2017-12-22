@@ -16,6 +16,7 @@ unsigned long interval = 425.5;
 unsigned long currentMillis;
 unsigned long previousMillis = 0;
 boolean stateLED = false;
+boolean stateLED2 = true;
 unsigned long scrollinterval = 250;
 unsigned long scrollcurrentMillis;
 unsigned long scrollpreviousMillis = 0;
@@ -137,6 +138,7 @@ void setup() {
   lcd.begin (16, 2);
   lcd.print ("                  Merry Christmas!!!     Happy Holidays!!!");
   digitalWrite(YELLOW, stateLED);
+  Serial.begin(9600);
 }
 void loop() {
   reading = digitalRead(buttonPin);
@@ -216,19 +218,21 @@ void loop() {
   delay(100);
 }
 void MillisLoop() {
-  currentMillis = millis();
+  unsigned long currentMillis = millis();
   if ((unsigned long)(currentMillis - previousMillis) >= interval) {
     stateLED = !stateLED;
+    stateLED2 = !stateLED2;
     digitalWrite(YELLOW, stateLED);
+    digitalWrite(LED2, stateLED2);
     previousMillis = millis();
   }
-  scrollcurrentMillis = millis();
+  unsigned long scrollcurrentMillis = millis();
   if ((unsigned long)(scrollcurrentMillis - scrollpreviousMillis) >= scrollinterval) {
     ScrollState = !ScrollState;
     lcd.scrollDisplayLeft();
     scrollpreviousMillis = millis();
   }
-  RGBcurrentMillis = millis();
+  unsigned long RGBcurrentMillis = millis();
   if ((unsigned long)(RGBcurrentMillis - RGBpreviousMillis) >= RGBinterval) {
     reading = digitalRead(buttonPin);
     if (reading == true && previous == false) {
@@ -236,47 +240,56 @@ void MillisLoop() {
     }
     previous = reading;
     if (outputState == true) {
+      Serial.println("top");
       RGBState++;
       switch (RGBState) {
         case 1:
           digitalWrite(RED, true);
           digitalWrite(GREEN, false);
           digitalWrite(BLUE, false);
+          Serial.println("1");
           break;
         case 2:
           digitalWrite(RED, false);
           digitalWrite(GREEN, true);
           digitalWrite(BLUE, false);
+          Serial.println("2");
           break;
         case 3:
           digitalWrite(RED, false);
           digitalWrite(GREEN, false);
           digitalWrite(BLUE, true);
+          Serial.println("3");
           break;
         case 4:
           digitalWrite(RED, true);
           digitalWrite(GREEN, true);
           digitalWrite(BLUE, false);
+          Serial.println("4");
           break;
         case 5:
           digitalWrite(RED, false);
           digitalWrite(GREEN, true);
           digitalWrite(BLUE, true);
+          Serial.println("5");
           break;
         case 6:
           digitalWrite(RED, true);
           digitalWrite(GREEN, false);
           digitalWrite(BLUE, true);
+          Serial.println("6");
           break;
         case 7:
           digitalWrite(RED, true);
           digitalWrite(GREEN, true);
           digitalWrite(BLUE, true);
+          Serial.println("7");
           break;
         case 8:
           digitalWrite(RED, false);
           digitalWrite(GREEN, false);
           digitalWrite(BLUE, false);
+          Serial.println("8");
           RGBState = 0;
           break;
       }
@@ -293,8 +306,8 @@ void pausebuttonLoop() {
 
   while (outputState == false) {
     digitalWrite(BLUE, false);
-    digitalWrite(GREEN, false);
-    digitalWrite(RED, true);
+    digitalWrite(GREEN, true);
+    digitalWrite(RED, false);
     digitalWrite(YELLOW, false);
     digitalWrite(LED2, true);
     noTone(buzzerPin);
@@ -305,6 +318,10 @@ void pausebuttonLoop() {
     previous = reading;
     if (outputState == true) {
       digitalWrite(LED2, false);
+      digitalWrite(BLUE, false);
+      digitalWrite(GREEN, false);
+      digitalWrite(RED, false);
+      RGBState++;
     }
   }
 }
@@ -317,8 +334,8 @@ void resetbuttonLoop() {
   if (outputStateRESET == false) {
     play = false;
     digitalWrite(BLUE, false);
-    digitalWrite(GREEN, false);
-    digitalWrite(RED, true);
+    digitalWrite(GREEN, true);
+    digitalWrite(RED, false);
     digitalWrite(YELLOW, false);
     digitalWrite(LED2, true);
     noTone(buzzerPin);
@@ -326,7 +343,5 @@ void resetbuttonLoop() {
   }
   else {
     play = true;
-    digitalWrite(RED, false);
-
   }
 }
