@@ -16,6 +16,14 @@ unsigned long interval = 425.5;
 unsigned long currentMillis;
 unsigned long previousMillis = 0;
 boolean stateLED = false;
+unsigned long scrollinterval = 250;
+unsigned long scrollcurrentMillis;
+unsigned long scrollpreviousMillis = 0;
+boolean ScrollState = true;
+unsigned long RGBinterval = 851;
+unsigned long RGBcurrentMillis;
+unsigned long RGBpreviousMillis = 0;
+int RGBState = 0;
 #include <LiquidCrystal.h>;
 LiquidCrystal lcd(13, 12, 11, 10, 9, 8);
 const int G3 =  196;
@@ -153,8 +161,8 @@ void loop() {
       }
       int noteDuration1 = 1297 / repeatedNoteDurations[thisNote];
       tone(buzzerPin, repeatedMelody[thisNote], noteDuration1);
-      for (int i =1; i<=16; i++) {
-        delay(noteDuration1 /16);
+      for (int i = 1; i <= 16; i++) {
+        delay(noteDuration1 / 16);
         MillisLoop();
       }
       noTone(buzzerPin);
@@ -168,8 +176,8 @@ void loop() {
       }
       int endingNoteDuration1 = 1297 / endingNoteDurations1[thisNote1];
       tone(buzzerPin, endingMelody1[thisNote1], endingNoteDuration1);
-      for (int i =1; i<=16; i++) {
-        delay(endingNoteDuration1 /16);
+      for (int i = 1; i <= 16; i++) {
+        delay(endingNoteDuration1 / 16);
         MillisLoop();
       }
       noTone(buzzerPin);
@@ -183,8 +191,8 @@ void loop() {
       }
       int noteDuration1 = 1297 / repeatedNoteDurations[thisNote];
       tone(buzzerPin, repeatedMelody[thisNote], noteDuration1);
-      for (int i =1; i<=16; i++) {
-        delay(noteDuration1 /16);
+      for (int i = 1; i <= 16; i++) {
+        delay(noteDuration1 / 16);
         MillisLoop();
       }
       noTone(buzzerPin);
@@ -198,8 +206,8 @@ void loop() {
       }
       int endingNoteDuration2 = 1297 / endingNoteDurations2[thisNote2];
       tone(buzzerPin, endingMelody2[thisNote2], endingNoteDuration2);
-      for (int i =1; i<=16; i++) {
-        delay(endingNoteDuration2 /16);
+      for (int i = 1; i <= 16; i++) {
+        delay(endingNoteDuration2 / 16);
         MillisLoop();
       }
       noTone(buzzerPin);
@@ -208,12 +216,73 @@ void loop() {
   delay(100);
 }
 void MillisLoop() {
-  unsigned long currentMillis = millis();
-      if ((unsigned long)(currentMillis - previousMillis) > interval) {
-        stateLED = !stateLED;
-        digitalWrite(YELLOW, stateLED);
-        previousMillis = millis();
+  currentMillis = millis();
+  if ((unsigned long)(currentMillis - previousMillis) >= interval) {
+    stateLED = !stateLED;
+    digitalWrite(YELLOW, stateLED);
+    previousMillis = millis();
+  }
+  scrollcurrentMillis = millis();
+  if ((unsigned long)(scrollcurrentMillis - scrollpreviousMillis) >= scrollinterval) {
+    ScrollState = !ScrollState;
+    lcd.scrollDisplayLeft();
+    scrollpreviousMillis = millis();
+  }
+  RGBcurrentMillis = millis();
+  if ((unsigned long)(RGBcurrentMillis - RGBpreviousMillis) >= RGBinterval) {
+    reading = digitalRead(buttonPin);
+    if (reading == true && previous == false) {
+      outputState = !outputState;
+    }
+    previous = reading;
+    if (outputState == true) {
+      RGBState++;
+      switch (RGBState) {
+        case 1:
+          digitalWrite(RED, true);
+          digitalWrite(GREEN, false);
+          digitalWrite(BLUE, false);
+          break;
+        case 2:
+          digitalWrite(RED, false);
+          digitalWrite(GREEN, true);
+          digitalWrite(BLUE, false);
+          break;
+        case 3:
+          digitalWrite(RED, false);
+          digitalWrite(GREEN, false);
+          digitalWrite(BLUE, true);
+          break;
+        case 4:
+          digitalWrite(RED, true);
+          digitalWrite(GREEN, true);
+          digitalWrite(BLUE, false);
+          break;
+        case 5:
+          digitalWrite(RED, false);
+          digitalWrite(GREEN, true);
+          digitalWrite(BLUE, true);
+          break;
+        case 6:
+          digitalWrite(RED, true);
+          digitalWrite(GREEN, false);
+          digitalWrite(BLUE, true);
+          break;
+        case 7:
+          digitalWrite(RED, true);
+          digitalWrite(GREEN, true);
+          digitalWrite(BLUE, true);
+          break;
+        case 8:
+          digitalWrite(RED, false);
+          digitalWrite(GREEN, false);
+          digitalWrite(BLUE, false);
+          RGBState = 0;
+          break;
       }
+    }
+    RGBpreviousMillis = millis();
+  }
 }
 void pausebuttonLoop() {
   reading = digitalRead(buttonPin);
@@ -223,6 +292,8 @@ void pausebuttonLoop() {
   previous = reading;
 
   while (outputState == false) {
+    digitalWrite(BLUE, false);
+    digitalWrite(GREEN, false);
     digitalWrite(RED, true);
     digitalWrite(YELLOW, false);
     digitalWrite(LED2, true);
@@ -232,6 +303,9 @@ void pausebuttonLoop() {
       outputState = !outputState;
     }
     previous = reading;
+    if (outputState == true) {
+      digitalWrite(LED2, false);
+    }
   }
 }
 void resetbuttonLoop() {
@@ -242,6 +316,8 @@ void resetbuttonLoop() {
   previousRESET = readingRESET;
   if (outputStateRESET == false) {
     play = false;
+    digitalWrite(BLUE, false);
+    digitalWrite(GREEN, false);
     digitalWrite(RED, true);
     digitalWrite(YELLOW, false);
     digitalWrite(LED2, true);
@@ -251,5 +327,6 @@ void resetbuttonLoop() {
   else {
     play = true;
     digitalWrite(RED, false);
+
   }
 }
