@@ -17,7 +17,7 @@ unsigned long currentMillis;
 unsigned long previousMillis = 0;
 boolean stateLED1 = false;
 boolean stateLED2 = true;
-unsigned long scrollinterval = 250;
+unsigned long scrollinterval = 350;
 unsigned long scrollcurrentMillis;
 unsigned long scrollpreviousMillis = 0;
 boolean ScrollState = true;
@@ -136,7 +136,7 @@ void setup() {
   pinMode(LED2, OUTPUT);
   pinMode(buzzerPin, OUTPUT);
   lcd.begin (16, 2);
-  lcd.print ("                  Merry Christmas!!!     Happy Holidays!!!");
+  lcd.print ("-Rockin' around the Christmas Tree------Merry Christmas!!!   Happy Holidays!!!");
   digitalWrite(LED1, stateLED1);
   digitalWrite(LED2, stateLED2);
 }
@@ -148,10 +148,27 @@ void loop() {
   previous = reading;
 
   if (outputState == false) {
-    digitalWrite(RED, true);
+    digitalWrite(BLUE, false);
+    digitalWrite(RED, false);
+    digitalWrite(GREEN, true);
     digitalWrite(LED1, false);
     digitalWrite(LED2, true);
     noTone(buzzerPin);
+  }
+  readingRESET = digitalRead(resetPin);
+  if (readingRESET == true && previousRESET == false) {
+    outputStateRESET = !outputStateRESET;
+  }
+  previousRESET = readingRESET;
+  if (outputStateRESET == false) {
+    digitalWrite(BLUE, false);
+    digitalWrite(RED, false);
+    digitalWrite(GREEN, true);
+    digitalWrite(LED1, false);
+    digitalWrite(LED2, true);
+    noTone(buzzerPin);
+    lcd.setCursor(0,0);
+    lcd.print("-Rockin' around the Christmas Tree------Merry Christmas!!!   Happy Holidays!!!");
   }
   else {
     for (int thisNote = 0; thisNote < numNotes; thisNote++) {
@@ -159,7 +176,9 @@ void loop() {
       pausebuttonLoop();
       resetbuttonLoop();
       if (!play) {
-        break;
+        RGBState = 0;
+        digitalWrite(LED1, false);
+        return;
       }
       int noteDuration1 = 1297 / repeatedNoteDurations[thisNote];
       tone(buzzerPin, repeatedMelody[thisNote], noteDuration1);
@@ -174,7 +193,9 @@ void loop() {
       pausebuttonLoop();
       resetbuttonLoop();
       if (!play) {
-        break;
+        RGBState = 0;
+        digitalWrite(LED1, false);
+        return;
       }
       int endingNoteDuration1 = 1297 / endingNoteDurations1[thisNote1];
       tone(buzzerPin, endingMelody1[thisNote1], endingNoteDuration1);
@@ -189,7 +210,9 @@ void loop() {
       pausebuttonLoop();
       resetbuttonLoop();
       if (!play) {
-        break;
+        RGBState = 0;
+        digitalWrite(LED1, false);
+        return;
       }
       int noteDuration1 = 1297 / repeatedNoteDurations[thisNote];
       tone(buzzerPin, repeatedMelody[thisNote], noteDuration1);
@@ -204,7 +227,9 @@ void loop() {
       pausebuttonLoop();
       resetbuttonLoop();
       if (!play) {
-        break;
+        RGBState = 0;
+        digitalWrite(LED1, false);
+        return;
       }
       int endingNoteDuration2 = 1297 / endingNoteDurations2[thisNote2];
       tone(buzzerPin, endingMelody2[thisNote2], endingNoteDuration2);
@@ -218,21 +243,25 @@ void loop() {
   delay(100);
 }
 void MillisLoop() {
-  unsigned long currentMillis = millis();
+  currentMillis = millis();
   if ((unsigned long)(currentMillis - previousMillis) >= interval) {
     stateLED1 = !stateLED1;
     stateLED2 = !stateLED2;
     digitalWrite(LED1, stateLED1);
     digitalWrite(LED2, stateLED2);
+    if (!play) {
+      digitalWrite(LED1, false);
+      digitalWrite(LED2, true);
+    }
     previousMillis = millis();
   }
-  unsigned long scrollcurrentMillis = millis();
+  scrollcurrentMillis = millis();
   if ((unsigned long)(scrollcurrentMillis - scrollpreviousMillis) >= scrollinterval) {
     ScrollState = !ScrollState;
     lcd.scrollDisplayLeft();
     scrollpreviousMillis = millis();
   }
-  unsigned long RGBcurrentMillis = millis();
+  RGBcurrentMillis = millis();
   if ((unsigned long)(RGBcurrentMillis - RGBpreviousMillis) >= RGBinterval) {
     reading = digitalRead(buttonPin);
     if (reading == true && previous == false) {
@@ -308,10 +337,6 @@ void pausebuttonLoop() {
     }
     previous = reading;
     if (outputState == true) {
-      digitalWrite(LED2, false);
-      digitalWrite(BLUE, false);
-      digitalWrite(GREEN, false);
-      digitalWrite(RED, false);
       RGBState++;
     }
   }
@@ -330,9 +355,8 @@ void resetbuttonLoop() {
     digitalWrite(LED1, false);
     digitalWrite(LED2, true);
     noTone(buzzerPin);
-
   }
-  else {
+  if (outputStateRESET == true) {
     play = true;
   }
 }
